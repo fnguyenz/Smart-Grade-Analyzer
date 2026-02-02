@@ -21,35 +21,38 @@ C = list(range(60, 67))
 Cminus = list(range(50, 60))
 F = list(range(0, 50))
 
+# when user is asked if they are done, 
+def check():
+    global done
+    input("Anything else? [Y / N]\n").strip().isalpha()
+    if "y": 
+        done = True
+        collect(False)
+    if "n":
+        calc()
+        done = False
+    else:
+        print("Not a valid input, please indicate Y or N!")
+        check()
+
 # begin the calculating, allow for user to begin inputting values,
-def collect():
-    print("Please input one grade at a time and using your grade percentage! (e.g. 96, 75)\n\nWhen you are done, type DONE")
-    while not done:
-        for loop in range():
-            grade = int(input("Course Grade:   ").strip().isnumeric())
-            courses.append(grade) # save each input into the list
-
-            if num <= 2:
-                input("Anything else? [Y / N]\n").strip().isalpha()
-                if "y": 
-                    done = True
-                if "n":
-                    done = False
-                else:
-                    print("Not a valid input, please indicate Y or N!")
-                    return
-            break
-        break
-    while done:
-        print("not done yet!")
-
-# check for any invalid characters using regex, tell them to re-state that grade properly
-
-
+def collect(done):
+    print(f"Please input one grade at a time and using your grade percentage! (e.g. 96, 75)\n\nNumber of courses listed {len(courses)}")
+    while done == False:
+        grade = int(input("Course Grade:   ").strip().isnumeric())
+        courses.append(grade) # save each input into the list
+        if len(courses) > 2:
+            check()
+        if done == True:
+            calc()
 # once user states they are done listing, calculate the average using the number of courses they inputted into the system
+# use the math module
+def calc():
+    print("ur in the calculating function!!!!")
+
 
 # obtain users name and then call upon a function to begin
 name = input("Hey user! Before we start calculating, what is your name?\n\n").strip().capitalize()
 print(f"Thanks {name}, let's begin now.")
 
-collect()
+collect(False)
