@@ -38,10 +38,13 @@ def calculation():
         lettergrade = "C-"
     else:
         lettergrade = "F"
+        
     # state the highest and lowest grade the user received
+    highest = max(courses)
+    lowest = min(courses)
 
     # print the results; average, highest/lowest, and letter grade
-    print(f"Out of your {len(courses)} grades: your grade average is {avg}, which is a {lettergrade}")
+    print(f"Out of your {len(courses)} grades: your grade average is {avg}, which is a {lettergrade}, with your highest being {highest} and lowest being {lowest}.")
 
 
 # begin the calculating, allow for user to begin inputting values,
