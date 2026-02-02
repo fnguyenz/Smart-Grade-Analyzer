@@ -18,16 +18,25 @@ C = list(range(60, 67))
 Cminus = list(range(50, 60))
 F = list(range(0, 50))
 
+# once user states they are done listing, calculate the average using the number of courses they inputted into the system
+def calculation():
+    print("ur in the calculating function!!!!")
+
+    # collect each number within the list of courses, and add them all together
+    totalsum = sum(courses)
+    avg = totalsum/len(courses)
+    print(f"Out of your {len(courses)} grades, your grade average is {avg}")
+
+
 # begin the calculating, allow for user to begin inputting values,
 def collect(done):
     print("Please input one grade at a time and using your grade percentage! (e.g. 96, 75)\n\nInput DONE to calculate.")
     
     # loop that goes on while the users grade input is still ongoing.
-    while done == False:
+    while not done:
         # break loop when user states they are done
-        if done == True:
-            calc()
-            break
+
+
         
         # let user know how many courses theyve inputted so far.
         print(f"Number of courses inputted: {len(courses)}")
@@ -36,19 +45,20 @@ def collect(done):
         # if there are 2 or more inputs and user states they are done, move on to the next step.
         if userinput == "done":
             if len(courses) >= 2: 
-                done == True
+                done = True
+                calculation()
                 break
+            
             # if there is not enough courses, continue the loop
             else:
-                print("Please input at least 2 grades in order to calculate.")
+                print("\nPlease input at least 2 grades in order to calculate.\n")
                 continue
         # before converting grade into integer, determine if it is valid (and if user is not done.)
         elif not userinput.isdigit():
-            print("This is not a valid grade! please input a proper grade percentage.")
+            print("\nThis is not a valid grade! please input a proper grade percentage.\n")
             continue
         else:
             grade = int(userinput)
-            print(courses) # see which grades you have inputted so far.
 
         # if grade goes beyond 100, or below 0, it is invalid.
         if grade <= 0 or grade > 100: 
@@ -56,17 +66,13 @@ def collect(done):
             continue
         else:
             courses.append(grade) # save each input into the list
+            print(courses) # see which grades you have inputted so far.
             continue
 
     
-# once user states they are done listing, calculate the average using the number of courses they inputted into the system
-# use the math module
-def calc():
-    print("ur in the calculating function!!!!")
-
 
 # obtain users name and then call upon a function to begin
 name = input("Hey user! Before we start calculating, what is your name?\n\n").strip().capitalize()
-print(f"Thanks {name}, let's begin now.")
+print(f"Thanks {name}, let's begin now.\n\n")
 
 collect(False)
