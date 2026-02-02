@@ -4,9 +4,6 @@ This is my first project as a Master of Infotech!
 This will be used to calculate a students average grade given their scores in a course.
 User will be able to input scores between 0-100, and can let the code know when they are done to begin calculations.
 """
-# import modules required (eg. regex)
-import re
-import math
 
 # define variables
 courses = []
@@ -21,30 +18,47 @@ C = list(range(60, 67))
 Cminus = list(range(50, 60))
 F = list(range(0, 50))
 
-# when user is asked if they are done, 
-def check():
-    global done
-    input("Anything else? [Y / N]\n").strip().isalpha()
-    if "y": 
-        done = True
-        collect(False)
-    if "n":
-        calc()
-        done = False
-    else:
-        print("Not a valid input, please indicate Y or N!")
-        check()
-
 # begin the calculating, allow for user to begin inputting values,
 def collect(done):
-    print(f"Please input one grade at a time and using your grade percentage! (e.g. 96, 75)\n\nNumber of courses listed {len(courses)}")
+    print("Please input one grade at a time and using your grade percentage! (e.g. 96, 75)\n\nInput DONE to calculate.")
+    
+    # loop that goes on while the users grade input is still ongoing.
     while done == False:
-        grade = int(input("Course Grade:   ").strip().isnumeric())
-        courses.append(grade) # save each input into the list
-        if len(courses) > 2:
-            check()
+        # break loop when user states they are done
         if done == True:
             calc()
+            break
+        
+        # let user know how many courses theyve inputted so far.
+        print(f"Number of courses inputted: {len(courses)}")
+        userinput = input("Course Grade:   ").strip() # variable of each grade
+
+        # if there are 2 or more inputs and user states they are done, move on to the next step.
+        if userinput == "done":
+            if len(courses) >= 2: 
+                done == True
+                break
+            # if there is not enough courses, continue the loop
+            else:
+                print("Please input at least 2 grades in order to calculate.")
+                continue
+        # before converting grade into integer, determine if it is valid (and if user is not done.)
+        elif not userinput.isdigit():
+            print("This is not a valid grade! please input a proper grade percentage.")
+            continue
+        else:
+            grade = int(userinput)
+            print(courses) # see which grades you have inputted so far.
+
+        # if grade goes beyond 100, or below 0, it is invalid.
+        if grade <= 0 or grade > 100: 
+            print("That is not a valid grade, please input a grade percentage!")
+            continue
+        else:
+            courses.append(grade) # save each input into the list
+            continue
+
+    
 # once user states they are done listing, calculate the average using the number of courses they inputted into the system
 # use the math module
 def calc():
