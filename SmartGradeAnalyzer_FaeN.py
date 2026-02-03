@@ -38,7 +38,7 @@ def calculation():
         lettergrade = "C-"
     else:
         lettergrade = "F"
-        
+
     # state the highest and lowest grade the user received
     highest = max(courses)
     lowest = min(courses)
@@ -56,7 +56,7 @@ def collect(done):
 
         # let user know how many courses theyve inputted so far.
         print(f"Number of courses inputted: {len(courses)}")
-        userinput = input("Course Grade:   ").strip() # variable of each grade
+        userinput = input("Course Grade:   ").strip().lower() # variable of each grade
 
         # if there are 2 or more inputs and user states they are done, move on to the next step.
         # break loop when user states they are done
@@ -78,18 +78,25 @@ def collect(done):
             grade = int(userinput)
 
         # if grade goes beyond 100, or below 0, it is invalid.
-        if grade <= 0 or grade > 100: 
-            print("That is not a valid grade, please input a grade percentage!")
+        if grade < 0 or grade > 100: 
+            print("That is not a valid grade, please input a grade percentage!\n")
             continue
         else:
             courses.append(grade) # save each input into the list
             print(courses) # see which grades you have inputted so far.
             continue
 
-    
+def intro():
+    # obtain users name and then call upon a function to begin
+    user = input("Hey user! Before we start calculating, what is your name?\n\n").strip().capitalize()
+    if user.isalpha():
+        name = user
+        print(f"Thanks {name}, let's begin now.\n\n")
+        collect(False)
+    elif not user.isalpha():
+        print("That is not a name, try again!\n")
+        intro()
 
-# obtain users name and then call upon a function to begin
-name = input("Hey user! Before we start calculating, what is your name?\n\n").strip().capitalize()
-print(f"Thanks {name}, let's begin now.\n\n")
+intro()
 
-collect(False)
+
